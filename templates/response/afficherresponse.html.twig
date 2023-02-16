@@ -1,0 +1,35 @@
+{% extends 'templateback.html.twig' %}
+{% block titre%}
+    <h1>Liste Des Responses</h1>
+{% endblock %}
+{% block body %}
+    <div>
+    <table class="table table-borderless datatable">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+
+            <th scope="col">Description</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for response in responses %}
+        <tr>
+
+            <th scope="row"><a href="#">{{ response.id }}</a></th>
+            <td>{{ response.description }}</td>
+           {# <td><a href="#" class="text-primary">At praesentium minu</a></td>
+            <td>$64</td>
+            <td><span class="badge bg-success">Approved</span></td>#}
+                <td><a href="{{path('app_detailresponse',{id:response.id})}} " class="card-link">Details</a></td>
+               <td><a href="{{path('app_deleteresponse',{id:response.id})}} " class="card-link">Delete</a></td>
+               <td><a href="{{path('app_addresponse',{id:response.getReclamation().id})}} " class="card-link">Edit</a></td>
+            {% endfor %}
+        </tr>
+
+        </tbody>
+    </table>
+
+    </div>
+{% endblock %}
