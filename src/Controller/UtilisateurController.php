@@ -10,6 +10,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use App\Repository\UtilisateurRepository;
 use App\Form\UserFormType;
 use App\Form\UserType;
+use App\Form\InscriptionType;
 use Twig\Environment;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Form\LoginType;
@@ -83,8 +84,32 @@ public function addStudent(ManagerRegistry $doctrine,UtilisateurRepository $repo
     $em->flush();
     return  $this->redirectToRoute("app_utilisateur");
     }
+    #[Route('/incrit', name: 'app_inscrit')]
+    public function inscription(SessionInterface $session,UtilisateurRepository $x,ManagerRegistry  $doctrine,Request $request)
+    {
+        $Utilisateur = new Utilisateur();
+        $form= $this->createForm(InscriptionType::class,$Utilisateur);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
     
 
+            $em= $doctrine->getManager();
+            $em->persist($Utilisateur);
+            $em->flush();
+            return  $this->redirectToRoute("app_acceuil");
+        }
+        
+        return $this->render('/utilisateur/inscription.html.twig',array("form"=>$form->createView()));
+        }
+    #[Route('/acceuil', name: 'app_acceuil')]
+    public function front()
+    {
+       
+        return $this->render('front.html.twig');
+      
+        }
+        
+    
     
 
     
@@ -100,7 +125,7 @@ public function addStudent(ManagerRegistry $doctrine,UtilisateurRepository $repo
             $Utilisateur=$form->getdata();
             $check_u=$x->findByExampleField($Utilisateur->getEmail());
            $session->set('my_key',$check_u[0]);
-            if ($Utilisateur->getEmail()==$check_u[0]->getEmail()&& $Utilisateur->getMdp()==$check_u[0]->getMdp())
+            if ($Utilisateur->getEmail()==$check_u[0]->getEmail()&& $Utilisateur->getMdp()==$check_u[0]->getMdp() && $check_u[0]->getType()=="Admin")
             return $this->redirectToRoute("app_utilisateur");
 else
 return $this->render('utilisateur/login.html.twig',array("form"=>$form->createView()));
