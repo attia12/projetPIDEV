@@ -12,6 +12,7 @@ use App\Form\UserFormType;
 use App\Form\UserType;
 use App\Form\InscriptionType;
 use Twig\Environment;
+use App\Entity\Image;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Form\LoginType;
 
@@ -32,8 +33,15 @@ $check=0;
    
 
     if ($form->isSubmitted() && $form->isValid()){
-    
-
+        $file = $form->get('Img')->getData();
+        $fileName = md5(uniqid()).'.'.$file->guessExtension();
+        var_dump($file);
+        $file->move(
+            
+            $fileName
+        );
+        
+        $Utilisateur->setImg($fileName);
         $em= $doctrine->getManager();
         $em->persist($Utilisateur);
         $em->flush();
@@ -109,7 +117,14 @@ public function addStudent(ManagerRegistry $doctrine,UtilisateurRepository $repo
       
         }
         
-    
+        #[Route('/acceuil_logged', name: 'app_acceuil_logged')]
+        public function front_logged(SessionInterface $session,UtilisateurRepository $x,ManagerRegistry  $doctrine,Request $request)
+        {
+            $myValue = $session->get('my_key')->getId();
+        $u=$x->find($myValue);
+            return $this->render('utilisateur/acceuil.html.twig',array("user"=>$u));
+          
+            }
     
 
     
@@ -133,7 +148,26 @@ return $this->render('utilisateur/login.html.twig',array("form"=>$form->createVi
         return $this->render('utilisateur/login.html.twig',array("form"=>$form->createView()));
 
     }
+    #[Route('/login_front', name: 'app_login_front')]
 
+    public function Login_front(ManagerRegistry  $doctrine,Request $request,UtilisateurRepository  $x,SessionInterface $session):Response
+    {
+        $Utilisateur= new Utilisateur();
+        $check_u= new Utilisateur();
+        $form= $this->createForm(LoginType::class,$Utilisateur);
+        $form->handleRequest($request);
+        if($form->isSubmitted()){
+            $Utilisateur=$form->getdata();
+            $check_u=$x->findByExampleField($Utilisateur->getEmail());
+           $session->set('my_key',$check_u[0]);
+            if ($Utilisateur->getEmail()==$check_u[0]->getEmail()&& $Utilisateur->getMdp()==$check_u[0]->getMdp() && $check_u[0]->getType()!="Admin")
+            return $this->redirectToRoute("app_acceuil_logged");
+else
+return $this->render('utilisateur/login_front.html.twig',array("form"=>$form->createView()));
+        }
+        return $this->render('utilisateur/login_front.html.twig',array("form"=>$form->createView()));
+
+    }
 
 
 
