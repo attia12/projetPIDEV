@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Repository\UtilisateurRepository;
 use App\Form\UserFormType;
+use League\OAuth2\Client\Provider\Facebook;
 use App\Form\UserType;
 use App\Form\InscriptionType;
 use Twig\Environment;
@@ -18,6 +19,7 @@ use App\Form\LoginType;
 
 class UtilisateurController extends AbstractController
 {
+    private $provider;
     private $u;
     #[Route('/utilisateur', name: 'app_utilisateur')]
     public function index(SessionInterface $session,UtilisateurRepository $x,ManagerRegistry  $doctrine,Request $request): Response
@@ -35,13 +37,9 @@ $check=0;
     if ($form->isSubmitted() && $form->isValid()){
         $file = $form->get('Img')->getData();
         $fileName = md5(uniqid()).'.'.$file->guessExtension();
-        var_dump($file);
-        $file->move(
-            
-            $fileName
-        );
+        $file->move('C:\Users\user\Desktop\3eme\PI\Web\public\assets\img\upload',$fileName);
         
-        $Utilisateur->setImg($fileName);
+        $Utilisateur->setImg("assets/img/upload/".$fileName);
         $em= $doctrine->getManager();
         $em->persist($Utilisateur);
         $em->flush();
@@ -74,6 +72,11 @@ $check=0;
         $Utilisateur->setType($Utilisateur1->getType());
         $Utilisateur->setAdresse($Utilisateur1->getAdresse());
         $Utilisateur->setNum($Utilisateur1->getNum());
+        $file = $form->get('Img')->getData();
+        $fileName = md5(uniqid()).'.'.$file->guessExtension();
+        $file->move('C:\Users\user\Desktop\3eme\PI\Web\public\assets\img\upload',$fileName);
+        
+        $Utilisateur->setImg("assets/img/upload/".$fileName);
         $em= $doctrine->getManager();
         $em->flush();
         return $this->redirectToRoute("app_utilisateur");}
@@ -99,7 +102,11 @@ public function addStudent(ManagerRegistry $doctrine,UtilisateurRepository $repo
         $form= $this->createForm(InscriptionType::class,$Utilisateur);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
-    
+            $file = $form->get('Img')->getData();
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            $file->move('C:\Users\user\Desktop\3eme\PI\Web\public\assets\img\upload',$fileName);
+            
+            $Utilisateur->setImg("assets/img/upload/".$fileName);
 
             $em= $doctrine->getManager();
             $em->persist($Utilisateur);
@@ -168,6 +175,146 @@ return $this->render('utilisateur/login_front.html.twig',array("form"=>$form->cr
         return $this->render('utilisateur/login_front.html.twig',array("form"=>$form->createView()));
 
     }
+
+    #[Route('/consult_user', name: 'app_consult_user')]
+    public function consult_user(SessionInterface $session,UtilisateurRepository $x,ManagerRegistry  $doctrine,Request $request)
+    {
+        $myValue = $session->get('my_key')->getId();
+        $u=$x->find($myValue);
+        $Utilisateur= new Utilisateur();
+        $form= $this->createForm(UserFormType::class,$Utilisateur);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+            $Utilisateur1=$form->getdata();
+            $u->setNom($Utilisateur1->getNom());
+            $u->setPrenom($Utilisateur1->getPrenom());
+            $u->setMdp($Utilisateur1->getMdp());
+            $u->setEmail($Utilisateur1->getEmail());
+            $u->setType($Utilisateur1->getType());
+            $u->setAdresse($Utilisateur1->getAdresse());
+            $u->setNum($Utilisateur1->getNum());
+            $file = $form->get('Img')->getData();
+        $fileName = md5(uniqid()).'.'.$file->guessExtension();
+        $file->move('C:\Users\user\Desktop\3eme\PI\Web\public\assets\img\upload',$fileName);
+        
+        $u->setImg("assets/img/upload/".$fileName);
+            $em= $doctrine->getManager();
+            $em->flush();
+            return $this->redirectToRoute("app_consult_user");}
+        return $this->render('/utilisateur/consult_user.html.twig',array("user"=>$u,"form"=>$form->CreateView()));
+
+
+
+        }
+
+
+//API FB
+
+
+public function __construct()
+{
+   $this->provider=new Facebook([
+     'clientId'          => $_ENV['FCB_ID'],
+     'clientSecret'      => $_ENV['FCB_SECRET'],
+     'redirectUri'       => $_ENV['FCB_CALLBACK'],
+     'graphApiVersion'   => 'v15.0',
+ ]);
+}
+
+ #[Route('/fcb-login', name: 'fcb_login')]
+    public function fcbLogin(): Response
+    {
+         
+        $helper_url=$this->provider->getAuthorizationUrl();
+
+        return $this->redirect($helper_url);
+    }
+
+
+    #[Route('/fcb-callback', name: 'fcb_callback')]
+    public function fcbCallBack(UtilisateurRepository $userDb, EntityManagerInterface $manager): Response
+    {
+       //Récupérer le token
+       $token = $this->provider->getAccessToken('authorization_code', [
+        'code' => $_GET['code']
+        ]);
+
+       try {
+           //Récupérer les informations de l'utilisateur
+
+           $user=$this->provider->getResourceOwner($token);
+
+           $user=$user->toArray();
+
+           $email=$user['email'];
+
+           $nom=$user['name'];
+
+           $picture=array($user['picture_url']);
+
+           //Vérifier si l'utilisateur existe dans la base des données
+
+           $user_exist=$userDb->findOneByEmail($email);
+
+           if($user_exist)
+           {
+                /*$user_exist->setNom($nom)
+                         ->setPictureUrl($picture);
+
+                $manager->flush();
+*/
+
+                return $this->render('Utilisateur/acceuil.html.twig');
+
+
+           }
+
+           else
+           {
+               /* $new_user=new User();
+
+                $new_user->setNom($nom)
+                      ->setEmail($email)
+                      ->setPassword(sha1(str_shuffle('abscdop123390hHHH;:::OOOI')))
+                      ->setPictureUrl($picture);
+              
+                $manager->persist($new_user);
+
+                $manager->flush();*/
+
+
+                return $this->render('Utilisateur/acceuil.html.twig');
+
+
+           }
+
+
+       } catch (\Throwable $th) {
+        //throw $th;
+
+          return $th->getMessage();
+       }
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

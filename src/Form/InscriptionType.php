@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 class InscriptionType extends AbstractType
 {
@@ -25,6 +26,7 @@ class InscriptionType extends AbstractType
                     
                     'Patient' => "Patient",
                 ],])
+                ->add('Img', FileType::class, )
                 ->add("Submit",SubmitType::class,array('attr' => array('class' => 'form-control','style' => 'margin-right:5px;background:#6495ED;')))
         ;
                  ;
