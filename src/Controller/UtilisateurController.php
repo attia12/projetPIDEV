@@ -9,7 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Repository\UtilisateurRepository;
 use App\Form\UserFormType;
-use League\OAuth2\Client\Provider\Facebook;
+use Doctrine\ORM\EntityManagerInterface;
+use League\OAuth2\Client\Provider\Google;
 use App\Form\UserType;
 use App\Form\InscriptionType;
 use Twig\Environment;
@@ -213,16 +214,16 @@ return $this->render('utilisateur/login_front.html.twig',array("form"=>$form->cr
 
 public function __construct()
 {
-   $this->provider=new Facebook([
-     'clientId'          => $_ENV['FCB_ID'],
-     'clientSecret'      => $_ENV['FCB_SECRET'],
-     'redirectUri'       => $_ENV['FCB_CALLBACK'],
+   $this->provider=new Google([
+     'clientId'          => $_ENV['Google_ID'],
+     'clientSecret'      => $_ENV['Google_SECRET'],
+     'redirectUri'       => $_ENV['Google_CALLBACK'],
      'graphApiVersion'   => 'v15.0',
  ]);
 }
 
  #[Route('/fcb-login', name: 'fcb_login')]
-    public function fcbLogin(): Response
+    public function ggleLogin(): Response
     {
          
         $helper_url=$this->provider->getAuthorizationUrl();
@@ -232,68 +233,62 @@ public function __construct()
 
 
     #[Route('/fcb-callback', name: 'fcb_callback')]
-    public function fcbCallBack(UtilisateurRepository $userDb, EntityManagerInterface $manager): Response
+    public function ggleCallBack(UtilisateurRepository $userDb,SessionInterface $session, ManagerRegistry  $doctrine)
     {
        //Récupérer le token
        $token = $this->provider->getAccessToken('authorization_code', [
         'code' => $_GET['code']
         ]);
 
-       try {
+    
            //Récupérer les informations de l'utilisateur
 
            $user=$this->provider->getResourceOwner($token);
 
            $user=$user->toArray();
 
-           $email=$user['email'];
+           
 
-           $nom=$user['name'];
-
-           $picture=array($user['picture_url']);
+           
 
            //Vérifier si l'utilisateur existe dans la base des données
 
-           $user_exist=$userDb->findOneByEmail($email);
+           $Utilisateur=$userDb->findOneByEmail($user['email']);
 
-           if($user_exist)
+           if($Utilisateur)
            {
-                /*$user_exist->setNom($nom)
-                         ->setPictureUrl($picture);
-
-                $manager->flush();
-*/
-
-                return $this->render('Utilisateur/acceuil.html.twig');
+                
+            $session->set('my_key',$Utilisateur);
+            return $this->redirectToRoute("app_acceuil_logged");
 
 
            }
 
            else
            {
-               /* $new_user=new User();
-
-                $new_user->setNom($nom)
-                      ->setEmail($email)
-                      ->setPassword(sha1(str_shuffle('abscdop123390hHHH;:::OOOI')))
-                      ->setPictureUrl($picture);
+               $new_user=new Utilisateur();
+$new_user->setNom($user['given_name']);
+$new_user->setPrenom($user['family_name']);
+$new_user->setEmail($user['email']);
+$new_user->setImg($user['picture']);
+$new_user->setAdresse("Megrine");
+$new_user->setType("Medecin");
+$new_user->setNum(0000);
+$new_user->setMdp(sha1(str_shuffle('abscdop123390hHHH;:::OOOI')));
+               
               
-                $manager->persist($new_user);
+$em= $doctrine->getManager();
+$em->persist($new_user);
+$em->flush();
+$session->set('my_key',$new_user);
 
-                $manager->flush();*/
-
-
-                return $this->render('Utilisateur/acceuil.html.twig');
+return $this->redirectToRoute("app_acceuil_logged");
 
 
            }
 
 
-       } catch (\Throwable $th) {
-        //throw $th;
-
-          return $th->getMessage();
-       }
+       
 
 
     }
