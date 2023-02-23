@@ -32,5 +32,6 @@ class FrontController extends AbstractController
             $em->flush();
             return  $this->redirectToRoute("app_local_index");
         }}
+        //test
 
 }
