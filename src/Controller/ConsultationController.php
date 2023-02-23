@@ -50,7 +50,7 @@ return $this->render('consultation/index.html.twig',array('consultations' => $co
             return $this->redirectToRoute('app_consultation_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('consultation/new.html.twig', [
+        return $this->renderForm('front/ajouter/new.html.twig', [
             'consultation' => $consultation,
             'form' => $form,
         ]);

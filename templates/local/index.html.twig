@@ -357,12 +357,12 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Dashboard</h1>
+      <h1>local</h1>
       
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Acceuil</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
+          <li class="breadcrumb-item active">local</li>
         </ol>
       </nav>
     </div>
@@ -382,7 +382,7 @@
                 <div class="filter">
                 
                     <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#importAnnModal">
-                    Ajouter
+                    Ajouter local
                     </button>
  
         <!-- Modal -->
@@ -394,7 +394,7 @@
                         <div class="modal-body">
                         
                             <div class="form-group">
-                              <h1>Create new Local</h1>
+                              <h1>ajouter noveaux local</h1>
 
     {{ include('local/_form.html.twig') }}
 
@@ -416,7 +416,7 @@
                 </div>
 
                 <div class="card-body">
-                  <h5 class="card-title">List des utilisateurs <span></span></h5>
+                  <h5 class="card-title">List des locals disponibles <span></span></h5>
 
                  
            
@@ -438,6 +438,7 @@
                 <th>NomPatient</th>
                 <th>NomMedecin</th>
                 <th>Localisation</th>
+              
                 <th>actions</th>
             </tr>
         </thead>
@@ -449,7 +450,7 @@
                 <td>{{ local.nomPatient }}</td>
                 <td>{{ local.nomMedecin }}</td>
                 <td>{{ local.localisation }}</td>
-                  
+                
                 <td>
                     <a href="{{ path('app_local_show', {'id': local.id}) }}">show</a>
                     <a href="{{ path('app_local_edit', {'id': local.id}) }}">edit</a>

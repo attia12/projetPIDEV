@@ -366,11 +366,11 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Dashboard</h1>
+      <h1>local </h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Acceuil</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
+          <li class="breadcrumb-item active">local edit</li>
         </ol>
       </nav>
     </div>
@@ -390,12 +390,12 @@
                 
 
                 <div class="card-body">
-                  <h5 class="card-title">hhhhhhhhhhhhh <span></span></h5>
+                  <h5 class="card-title">Modifier , supprimer et mise a jour les formulair <span></span></h5>
 
 
-          {{ include('local/_form.html.twig', {'button_label': 'Update'}) }}
+          {{ include('local/_form.html.twig', {'button_label': 'modifier'}) }}
 
-              <a href="{{ path('app_local_index') }}">back to list</a>
+              <a href="{{ path('app_local_index') }}">retour</a>
 
               {{ include('local/_delete_form.html.twig') }}
 

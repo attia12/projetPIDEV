@@ -13,10 +13,10 @@ class LocalType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nomBlock',TextType::class)
+            ->add('nomBlock',TextType::class,array('attr' => array('class' => 'form-control','style' => 'margin-right:5px;background:#6495DD;')))
             ->add('nomPatient',TextType::class,array('attr' => array('class' => 'form-control','style' => 'margin-right:5px;background:#6495DD;')))
             ->add('nomMedecin',TextType::class,array('attr' => array('class' => 'form-control','style' => 'margin-right:5px;background:#6495DD;')))
-            ->add('localisation',TextType::class)
+            ->add('localisation',TextType::class,array('attr' => array('class' => 'form-control','style' => 'margin-right:5px;background:#6495DD;')))
             //->add("Submit",SubmitType::class,array('attr' => array('class' => 'form-control','style' => 'margin-right:5px;background:#6495ED;')))
 
         ;

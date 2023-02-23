@@ -24,16 +24,21 @@ class Consultation
 
     #[ORM\Column(length: 30)]
     #[Assert\NotBlank(message:"Le nom  du la medecin est requis")]
-
+    #[Assert\Length(min: 2,minMessage: "veuillez avoir au minimum 2 caractere" )]
     private ?string $nomMedecin = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Assert\NotBlank(message:"date est requis")]
+    #[Assert\Range(
+        min: 'first day of January',
+        max: 'first day of January next year',
+    )]
     private ?\DateTimeInterface $duree = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Assert\NotBlank(message:"date est requis")]
-    #[Assert\Regex("/^[a-zA-Z]/")]
+    #[Assert\Range(
+        min: 'first day of January',
+        max: 'first day of January next year',
+    )]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\OneToMany(mappedBy: 'locales', targetEntity: Local::class)]

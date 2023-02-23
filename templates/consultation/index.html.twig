@@ -342,12 +342,12 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Dashboard</h1>
+      <h1>consultation</h1>
       
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Acceuil</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
+          <li class="breadcrumb-item active">consultation</li>
         </ol>
       </nav>
     </div>
@@ -363,7 +363,7 @@
 
                 <div class="filter">
                     <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#importAnnModal">
-                    Ajouter
+                    Ajouter consultation
                     </button>
  
         <!-- Modal -->
@@ -375,11 +375,10 @@
                         <div class="modal-body">
                         
                             <div class="form-group">
-                            <h1>Create new Consultation</h1>
+                            <h1>ajouter nouveaux consultation</h1>
+        {{ include('consultation/_form.html.twig') }}
 
-    {{ include('consultation/_form.html.twig') }}
-
-    <a href="{{ path('app_consultation_index') }}">back to list</a>
+       <a href="{{ path('app_consultation_index') }}">back to list</a>
                       
                        
  
@@ -395,7 +394,7 @@
                 </div>
 
                 <div class="card-body">
-                  <h5 class="card-title">List des utilisateurs <span></span></h5>
+                  <h5 class="card-title">List des informations des consultations disponibles  <span></span></h5>
 
             <div class="col-12">
               <div class="card recent-sales overflow-auto">
