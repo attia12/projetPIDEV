@@ -23,7 +23,7 @@ class InscriptionType extends AbstractType
             ->add('type', ChoiceType::class, [
                 'choices'  => [
                     'Medecin' => "Medecin",
-                    
+                    'Benevole' => "Benevole",
                     'Patient' => "Patient",
                 ],])
                 ->add('Img', FileType::class, )

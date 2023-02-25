@@ -15,10 +15,12 @@ class Utilisateur
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message:"Le nom est requis")]
+    #[Assert\Regex(pattern:"/^[A-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/",message:"Le nom format n'est pas valide")]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message:"Le prenom est requis")]
+    #[Assert\Regex(pattern:"/^[A-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/",message:"Le prenom format n'est pas valide")]
     private ?string $prenom = null;
 
     #[ORM\Column(length: 255)]
@@ -28,7 +30,7 @@ class Utilisateur
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message:"Le mot de pass est requis")]
-    
+   #[Assert\Length(min:8,minMessage:"Le mot de pass doit ètre suprerieur a 8 caractére")]
     private ?string $mdp = null;
     #[Assert\NotBlank(message:"L'addresse est requis")]
     #[ORM\Column(length: 255)]

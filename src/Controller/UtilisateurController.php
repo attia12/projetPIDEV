@@ -2,17 +2,26 @@
 
 namespace App\Controller;
 use App\Entity\Utilisateur;
+use Symfony\Component\Mime\Address;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Repository\UtilisateurRepository;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\Transport;
+use Symfony\Component\Mailer\Mailer;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use App\Form\UserFormType;
+use App\Form\EmailType;
+use App\Form\MdpType;
 use Doctrine\ORM\EntityManagerInterface;
 use League\OAuth2\Client\Provider\Google;
 use App\Form\UserType;
 use App\Form\InscriptionType;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Twig\Environment;
 use App\Entity\Image;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -22,6 +31,7 @@ class UtilisateurController extends AbstractController
 {
     private $provider;
     private $u;
+    private $emm;
     #[Route('/utilisateur', name: 'app_utilisateur')]
     public function index(SessionInterface $session,UtilisateurRepository $x,ManagerRegistry  $doctrine,Request $request): Response
     {
@@ -48,9 +58,9 @@ $check=0;
     }
         return $this->render('utilisateur/index.html.twig', array("tab"=>$formations,"formUtilisateur"=>$form->createView(),"user"=>$u));
     }
-    #[Route('/update/{id}', name: 'app')]
+    #[Route('/update/{id}', name: 'app_UpdateUser')]
 
-    public function updateClub(SessionInterface $session,$id,ManagerRegistry  $doctrine,Request $request,UtilisateurRepository  $repository):Response
+    public function updateUser(SessionInterface $session,$id,ManagerRegistry  $doctrine,Request $request,UtilisateurRepository  $repository):Response
     {
         $Utilisateur= new Utilisateur();
         $form= $this->createForm(UserFormType::class,$Utilisateur);
@@ -61,7 +71,7 @@ $check=0;
     
         $Utilisateur= $repository->find($id);
         
-        
+       // $form->get('nom')->setdata($Utilisateur->getNom());
 
         
         if ($form->isSubmitted() && $form->isValid()){
@@ -85,8 +95,8 @@ $check=0;
 
     }
 
-    #[Route('/User/{id}', name: 'app_addStudent')]
-public function addStudent(ManagerRegistry $doctrine,UtilisateurRepository $repository,$id)
+    #[Route('/User/{id}', name: 'app_RemoveUser')]
+public function SuppUser(ManagerRegistry $doctrine,UtilisateurRepository $repository,$id)
 {
    
 
@@ -144,14 +154,17 @@ public function addStudent(ManagerRegistry $doctrine,UtilisateurRepository $repo
         $check_u= new Utilisateur();
         $form= $this->createForm(LoginType::class,$Utilisateur);
         $form->handleRequest($request);
+        
         if($form->isSubmitted()){
             $Utilisateur=$form->getdata();
             $check_u=$x->findByExampleField($Utilisateur->getEmail());
-           $session->set('my_key',$check_u[0]);
+          if (isset($check_u[0])){
             if ($Utilisateur->getEmail()==$check_u[0]->getEmail()&& $Utilisateur->getMdp()==$check_u[0]->getMdp() && $check_u[0]->getType()=="Admin")
-            return $this->redirectToRoute("app_utilisateur");
+            {
+                $session->set('my_key',$check_u[0]);
+                return $this->redirectToRoute("app_utilisateur");}
 else
-return $this->render('utilisateur/login.html.twig',array("form"=>$form->createView()));
+return $this->render('utilisateur/login.html.twig',array("form"=>$form->createView()));}
         }
         return $this->render('utilisateur/login.html.twig',array("form"=>$form->createView()));
 
@@ -167,11 +180,13 @@ return $this->render('utilisateur/login.html.twig',array("form"=>$form->createVi
         if($form->isSubmitted()){
             $Utilisateur=$form->getdata();
             $check_u=$x->findByExampleField($Utilisateur->getEmail());
-           $session->set('my_key',$check_u[0]);
+          if(isset($check_u[0])){
             if ($Utilisateur->getEmail()==$check_u[0]->getEmail()&& $Utilisateur->getMdp()==$check_u[0]->getMdp() && $check_u[0]->getType()!="Admin")
-            return $this->redirectToRoute("app_acceuil_logged");
+           { 
+            $session->set('my_key',$check_u[0]);
+            return $this->redirectToRoute("app_acceuil_logged");}
 else
-return $this->render('utilisateur/login_front.html.twig',array("form"=>$form->createView()));
+return $this->render('utilisateur/login_front.html.twig',array("form"=>$form->createView()));}
         }
         return $this->render('utilisateur/login_front.html.twig',array("form"=>$form->createView()));
 
@@ -183,7 +198,7 @@ return $this->render('utilisateur/login_front.html.twig',array("form"=>$form->cr
         $myValue = $session->get('my_key')->getId();
         $u=$x->find($myValue);
         $Utilisateur= new Utilisateur();
-        $form= $this->createForm(UserFormType::class,$Utilisateur);
+        $form= $this->createForm(InscriptionType::class,$Utilisateur);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
             $Utilisateur1=$form->getdata();
@@ -293,12 +308,90 @@ return $this->redirectToRoute("app_acceuil_logged");
 
     }
 
+//mdp oublie
+
+    #[Route('/forget_pass', name: 'app_mdp_oublie')]
+    public function Mdp_page(ManagerRegistry  $doctrine,Request $request,UtilisateurRepository  $x,SessionInterface $session) 
+    {
+         $u= new Utilisateur();
+         $form= $this->createForm(EmailType::class);
+         $form->handleRequest($request);
+        if ($form->isSubmitted()){
+            
+            $u=$form->getdata();   
+            $session->set('u',$u);
+            
+            return $this->redirectToRoute("app_email");
+        
+        
+        
+        }
+        
+        return $this->render('/utilisateur/forget_pass.html.twig',array("form"=>$form->CreateView()));
+    }
 
 
 
+    #[Route('/forget', name: 'app_mdp')]
+    public function Mdpp_page(ManagerRegistry  $doctrine,Request $request,UtilisateurRepository  $x,SessionInterface $session) 
+    {
+         
+        $form= $this->createForm(MdpType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted()){
+            $myValue = $session->get('u')->getEmail();
+            $us=$x->findOneByEmail($myValue);  
+        $user=$form->getdata();
+        
+    $us->setMdp($user->getMdp());
+
+    $em= $doctrine->getManager();
+    $em->flush();
+
+            return $this->redirectToRoute("app_login_front");
+        
+        
+        
+        
+        }
+        return $this->render('/utilisateur/pass_forgot.html.twig',array("form"=>$form->CreateView()));
+    }
 
 
+    #[Route('/email',name: 'app_email')]
+    public function sendEmail(SessionInterface $session,UtilisateurRepository  $x)
+    {
+        $transport = Transport::fromDsn('smtp://sa7etnaa@gmail.com:xalnuexawgowijsy@smtp.gmail.com:587?verify_peer=0');
+        $mailer = new Mailer($transport);
+        $us=$x->findOneByEmail($session->get('u')->getEmail()); 
+        if (isset($us)){ 
+        try {$email = (new Email());
+            $email->from('Sa7etnaa@esprit.tn');
+            $email->to(new Address($session->get('u')->getEmail()));
+            
+            $email->subject('Réinitialiser de mot de passe');
+           // ->text('Sending emails is fun again!')
+         $email->html('<h3>Bonjour '.$us->getNom().' '.$us->getPrenom().'</h3><p>
+         Vous avez demandez de réinitialiser votre mot de passe pour the email suivant:
+     <code>'.$session->get('u')->getEmail().'</code></p>
+     <p>
+     <a href="http://127.0.0.1:8000/forget">Clicker ici pour réinitialiser votre mot de passe </a></p><h4>Adminstrateur Sa7etna</h4>');
+          // $email->addPart((new DataPart(new File('/assetss/img/logo.png'), 'footer-signature', 'image/gif'))->asInline());
+       
+          
+         
+    
+        $mailer->send($email);
+       
+        
 
+        return $this->redirectToRoute("app_login_front");}
+     catch (\Throwable $exception) {
+        return $this->render('bas.html.twig', [
+            'message' => 'An error occurred while sending the email: '.$exception->getMessage(),
+        ]);}}
+    
+    }
 
 
 

@@ -1,3 +1,5 @@
+
+
 {% extends 'front.html.twig' %}
 {% block body %}
 <body>
@@ -28,7 +30,7 @@
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li><a class="nav-link scrollto active" href="/acceuil_logged">Acceuil</a></li>
+          <li><a class="nav-link scrollto active" href="#hero">Acceuil</a></li>
           <li><a class="nav-link scrollto" href="#about">Medicaments</a></li>
           <li><a class="nav-link scrollto" href="#services">Dons</a></li>
           <li><a class="nav-link scrollto" href="#departments">Articles</a></li>
@@ -40,26 +42,69 @@
       </nav><!-- .navbar -->
 
       <a href="#appointment" class="appointment-btn scrollto"><span class="d-none d-md-inline">Prendre</span> un rendez-vous</a>
-<img src="{{ asset(user.img) }}" style="width: 50px;border-radius: 50%;">
-<li><a href="/consult_user">{{user.nom}} {{user.prenom}}</a></li>
 
     </div>
   </header><!-- End Header -->
 
-  </main><!-- End #main -->
   <!-- ======= Hero Section ======= -->
-  <section  class="d-flex align-items-center">
-    <div class="container">
-    <br>
-    <br>
-     <br>
-    <br>
-    {{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
-    {{ form(form) }}
-      
+  
+  <main id="main">
+
+    <!-- ======= Why Us Section ======= -->
    
-    </div>
-  </section>
+
+   
+
+   
+   
+   
+  
+
+   
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container">
+        
+        <div class="section-title">
+          
+          <h2>Contact</h2>
+          
+
+      <div class="container">
+        <div class="row mt-5">
+           <center>
+          <div class="col-lg-4">
+            <div class="info">
+            
+
+              {{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+                                {{ form(form) }}
+
+        
+            
+
+            
+        
+       </div>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-8 mt-5 mt-lg-0">
+
+            
+
+          </div>
+ </center>
+        </div>
+
+      </div>
+    
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
   <!-- ======= Footer ======= -->
   <footer id="footer">
 
@@ -88,4 +133,5 @@
       </div>
     </div>
   </footer><!-- End Footer -->
+
 {% endblock %}
