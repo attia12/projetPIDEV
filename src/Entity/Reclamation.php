@@ -53,7 +53,7 @@ class Reclamation
     #[Assert\Regex("/^[a-zA-Z]/")]
     private ?string $description = null;
 
-    #[ORM\OneToMany(mappedBy: 'reclamation', targetEntity: Response::class)]
+    #[ORM\OneToMany(mappedBy: 'reclamation', targetEntity: Response::class  )]
     private Collection $response;
 
     public function __construct()

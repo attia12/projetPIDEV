@@ -3,13 +3,20 @@
 namespace App\Controller;
 
 use App\Entity\Reclamation;
+
 use App\Form\ReclamationType;
+
+
+use App\Service\PdfService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
 use Symfony\Component\Routing\Annotation\Route;
+use Twilio\Rest\Client;
+
 #[Route('/reclamation')]
 
 class ReclamationController extends AbstractController
@@ -93,13 +100,39 @@ class ReclamationController extends AbstractController
             $entitymanager = $doctrine->getManager();
             $entitymanager->persist($reclamation);
             $entitymanager->flush();
-            $this->addFlash('success', " la reclamation a ete envoyée avec succeée");
-            //$form->getData();
-            return $this->redirectToRoute('app_indexall');
+            //sending email
+           // $email = (new Email())
+               // ->from('hello@example.com')
+               // ->to('you@example.com')
+                //->cc('cc@example.com')
+                //->bcc('bcc@example.com')
+                //->replyTo('fabien@example.com')
+                //->priority(Email::PRIORITY_HIGH)
+               // ->subject('Time for Symfony Mailer!')
+                //->text('Sending emails is fun again!')
+                //->html('<p>See Twig integration for better HTML integration!</p>');
+
+            //$mailer->send($email);
+            $accountSid='AC8f3d4e9f79cf0bd67b0a93b93b1f36d2';
+            $authToken='08f608bf084b546a538d3694c0f477a9';
+            $twilio= new Client($accountSid,$authToken);
+            $message = $twilio->messages->create('+21653587130',array( 'from'=>'+12707138326','body'=>'A new reclamation was detected!',));
+            if ($message->sid) {
+                $sms= 'SMS sent successfully.';
+                $this->addFlash('success', " la reclamation a ete envoyée avec succeée");
+                //$form->getData();
+                return $this->redirectToRoute('app_indexall');
+            } else {
+                $sms ='Failed to send SMS.';
+            }
+
+
 
         } else {
             return $this->render('reclamation/add-reclamation.html.twig', [
-                    'form' => $form->createView()
+                    'form' => $form->createView(),
+
+
 
                 ]
 
@@ -157,7 +190,7 @@ class ReclamationController extends AbstractController
 
 
     }
-    #[Route('/indecall/{page?1}/{nbre?12}', name: 'app_indexall')]
+    #[Route('/indecall/{page?1}/{nbre?9}', name: 'app_indexall')]
     public function indexall(ManagerRegistry $doctrine,$nbre,$page):Response
     {
         $repository=$doctrine->getRepository(Reclamation::class);
@@ -179,5 +212,23 @@ class ReclamationController extends AbstractController
 
 
     }
+    #[Route('/pdf/{id?1}', name: 'personne_pdf')]
+    public function generatepdf(Reclamation $reclamation=null,PdfService $pdf)
+    {
+        $html=$this->render('reclamation/detail.html.twig',[
+
+            'reclamation'=>$reclamation
+        ]);
+
+
+        $pdf->showpdf($html);
+
+    }
+
+
+
+
+
+
 
 }

@@ -1,4 +1,12 @@
 {% extends 'templateback.html.twig' %}
 {% block body %}
-{{ form(form) }}
+{{ form(form,{'attr':{'novalidate':'novalidate'}}) }}
+{% endblock %}
+{% block javascript %}
+<script>
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
+</script>
+
 {% endblock %}

@@ -2,7 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Reclamation;
 use App\Entity\Response;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,7 +17,20 @@ class ResponseType extends AbstractType
     {
         $builder
             ->add('description')
-            ->add('reclamation')
+            ->add('reclamation',EntityType::class,[
+
+                'expanded'=>false,
+                'class'=>Reclamation::class,
+                'multiple'=>false,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('r')
+                        ->orderBy('r.nom', 'ASC');
+                },
+                'attr'=>[
+                    'class'=>'select2'
+                ]
+
+            ])
             ->add('envoyer',SubmitType::class)
         ;
     }

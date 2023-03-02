@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ResponseRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ResponseRepository::class)]
 class Response
@@ -14,6 +15,9 @@ class Response
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Regex("/^[a-zA-Z]/")]
+    #[Assert\Length(min: 16,minMessage: "veuillez avoir au minimum 16 caractere" )]
     private ?string $description = null;
 
     #[ORM\ManyToOne(inversedBy: 'response')]

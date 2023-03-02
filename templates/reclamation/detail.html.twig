@@ -4,6 +4,7 @@
 {% endblock %}
 {% block body %}
     <div class="alert alert-success">
-        {{ reclamation.nom }} {{ reclamation.prenom }} {{ reclamation.email }}
+       La reclamation de  {{ reclamation.nom }}   {{ reclamation.prenom }} qui a {{ reclamation.email }}
+        consiste de "{{ reclamation.description }}"
     </div>
 {% endblock %}

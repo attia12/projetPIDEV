@@ -34,13 +34,15 @@ class ResponseController extends AbstractController
 
         }
 
+
+
         $response->setReclamation($reclamation);
 
         //$ersonne est l image de formulaire
         $form=$this->createForm(ResponseType::class,$response);
 
         $form->handleRequest($request);
-        if($form->isSubmitted() )
+        if($form->isSubmitted() && $form->isValid() )
         {//recuperer les data
             $entitymanager=$doctrine->getManager();
             $entitymanager->persist($response);
@@ -53,6 +55,7 @@ class ResponseController extends AbstractController
             {$message="a eté modifié avec succes";
 
             }
+
             $this->addFlash('success', $message);
             //$form->getData();
             return $this->redirectToRoute('app_afficheresponse');
