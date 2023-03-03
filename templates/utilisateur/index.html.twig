@@ -430,6 +430,7 @@
                         <th scope="col">Mot de pass</th>
                         <th scope="col">Address</th>
                         <th scope="col">Num</th>
+                        <th scope="col">Type</th>
                         <th scope="col">Etat</th>
                       </tr>
                     </thead>
@@ -443,10 +444,13 @@
                         <td>{{i.mdp}}</td>
                         <td>{{i.adresse}}</td>
                         <td>{{i.num}}</td>
-                        
+                         
                         <td><span class="badge bg-success">{{i.type}}</span></td>
+                         <td>{{i.etat}}</td>
                         <td>  <a class="nav-link collapsed" href="/User/{{i.id}}"> Supprimer </a>  </td>
+                       
                         <td>  <a class="nav-link collapsed" href="/update/{{i.id}}"> Modifier </a>  </td>
+                      <td>  <a class="nav-link collapsed" href="/Bloque/{{i.id}}"> Bloquer </a>  </td>
                       </tr>
                       
   
