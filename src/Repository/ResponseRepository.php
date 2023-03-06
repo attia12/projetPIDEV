@@ -38,6 +38,32 @@ class ResponseRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function triecroissant()
+    {
+        return $this->createQueryBuilder('r')
+            ->orderBy('r.description', 'ASC')
+
+            ->getQuery()
+            ->getResult();
+
+    }
+    public function triedecroissant()
+    {
+        return $this->createQueryBuilder('e')
+            ->orderBy('e.description','DESC')
+            ->getQuery()
+            ->getResult();
+    }
+    public function findResponsebydescription($description)
+    {
+        return $this->createQueryBuilder('response')
+            ->where('response.description LIKE :description')
+            ->setParameters('description','%'.$description.'%')
+            ->getQuery()
+            ->getResult();
+
+    }
+
 
 //    /**
 //     * @return Response[] Returns an array of Response objects

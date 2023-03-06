@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ReclamationRepository::class)]
@@ -15,6 +16,7 @@ class Reclamation
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups("reclamation")]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
@@ -24,6 +26,7 @@ class Reclamation
         pattern: '/\d/',
         match: false,
         message: 'Your name cannot contain a number',)]
+    #[Groups("reclamation")]
 
     private ?string $nom = null;
 
@@ -37,23 +40,27 @@ class Reclamation
         match: false,
         message: 'Your prenom cannot contain a number',
     )]
+    #[Groups("reclamation")]
     private ?string $prenom = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\Email(
         message: 'The email {{ value }} is not a valid email.',
     )]
+    #[Groups("reclamation")]
 
     private ?string $email = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups("reclamation")]
     private ?int $status = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\Regex("/^[a-zA-Z]/")]
+    #[Groups("reclamation")]
     private ?string $description = null;
 
-    #[ORM\OneToMany(mappedBy: 'reclamation', targetEntity: Response::class  )]
+    #[ORM\OneToMany(mappedBy: 'reclamation', targetEntity: Response::class ,cascade: ['persist','remove'] )]
     private Collection $response;
 
     public function __construct()

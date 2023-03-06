@@ -4,12 +4,15 @@ namespace App\Controller;
 
 use App\Entity\Reclamation;
 use App\Form\ResponseType;
+use App\Repository\ResponseRepository;
+use App\Service\WordFilterService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\NormalizableInterface;
 
 #[Route('/response')]
 
@@ -24,7 +27,7 @@ class ResponseController extends AbstractController
     }
 
     #[Route('/addresponse/{id?0}', name: 'app_addresponse')]
-    public function addResponse(Reclamation $reclamation=null,\App\Entity\Response $response=null,ManagerRegistry $doctrine,Request $request):Response
+    public function addResponse(Reclamation $reclamation=null,\App\Entity\Response $response=null,ManagerRegistry $doctrine,Request $request,WordFilterService $wordFilter):Response
     {
         $new=false;
         if(!$response)
@@ -44,7 +47,11 @@ class ResponseController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid() )
         {//recuperer les data
+
             $entitymanager=$doctrine->getManager();
+
+
+            $response->setDescription($wordFilter->filterWords($response->getDescription()));
             $entitymanager->persist($response);
             $entitymanager->flush();
             if($new)
@@ -114,6 +121,35 @@ class ResponseController extends AbstractController
             'response' => $response
         ]);
 
+
+    }
+    #[Route('/triec', name: 'triecroissant')]
+    public function trierpardescriptioncroissant(ResponseRepository $repository): Response
+    {
+      $responsecroissant=$repository->triecroissant();
+        return $this->render('response/afficherresponse.html.twig', [
+            "responses"=>$responsecroissant
+        ]);
+
+    }
+    #[Route('/tried', name: 'triedecroissant')]
+    public function trierpardescriptiondecroissant(ResponseRepository $repository): Response
+    {
+        $responsedecroissant=$repository->triedecroissant();
+        return $this->render('response/afficherresponse.html.twig', [
+            "responses"=>$responsedecroissant
+        ]);
+
+    }
+    #[Route('/ajax', name: 'recherchebyajax')]
+    public function searchbyajax(Request $request,NormalizableInterface $Normalizer,ResponseRepository $repo)
+    {
+        $requeststring=$request->get('searchvValue');
+        $response=$repo->findResponsebydescription($requeststring);
+
+        $jsonContent = $Normalizer->normalize($response, 'json', ['groups' => 'response']);
+        $retour=json_encode($jsonContent);
+        return new Response($retour);
 
     }
 

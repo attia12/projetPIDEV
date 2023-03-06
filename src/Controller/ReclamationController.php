@@ -7,14 +7,19 @@ use App\Entity\Reclamation;
 use App\Form\ReclamationType;
 
 
+use App\Repository\ReclamationRepository;
 use App\Service\PdfService;
+use App\Service\WordFilterService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 use Twilio\Rest\Client;
 
 #[Route('/reclamation')]
@@ -223,6 +228,81 @@ class ReclamationController extends AbstractController
 
         $pdf->showpdf($html);
 
+    }
+    #[Route('/affichejson', name: 'app_affichejson')]
+    public function afficherjson(ManagerRegistry $doctrine,SerializerInterface $serializer): Response
+    {
+        $repository = $doctrine->getRepository(Reclamation::class);
+        $reclamation = $repository->findAll();
+
+        $reclamationNormalises = $serializer->serialize($reclamation, 'json', ['groups' => "reclamation"]);
+
+        return new Response(json_encode($reclamationNormalises));
+
+    }
+    #[Route("/addReclamationJSON", name: "addreclamationJSON")]
+    public function addReclamationJSON(Request $req,   NormalizerInterface $Normalizer,ManagerRegistry $doctrine)
+    {
+
+        //$em = $this->getDoctrine()->getManager();
+        $manager=$doctrine->getManager();
+        $reclamation = new Reclamation();
+        //$reclamation->setNsc($req->get('nsc'));
+        $reclamation->setNom($req->get('nom'));
+        $reclamation->setPrenom($req->get('prenom'));
+        $reclamation->setEmail($req->get('email'));
+        $reclamation->setStatus(0);
+        $reclamation->setDescription($req->get('description'));
+
+        $manager->persist($reclamation);
+        $manager->flush();
+
+        $jsonContent = $Normalizer->normalize($reclamation, 'json', ['groups' => 'reclamation']);
+        return new Response(json_encode($jsonContent));
+    }
+    #[Route("/updateReclaamtionJSON/{id}", name: "updatereclaamtionJSON")]
+    public function updateReclamationJSON(Request $req, $id, NormalizerInterface $Normalizer,ManagerRegistry $doctrine)
+    {
+
+        $manager=$doctrine->getManager();
+        $reclamation = $manager->getRepository(Reclamation::class)->find($id);
+        $reclamation->setNom($req->get('nom'));
+        $reclamation->setPrenom($req->get('prenom'));
+        $reclamation->setEmail($req->get('email'));
+        $reclamation->setDescription($req->get('description'));
+
+        $manager->flush();
+
+        $jsonContent = $Normalizer->normalize($reclamation, 'json', ['groups' => 'reclamation']);
+        return new Response("Student updated successfully " . json_encode($jsonContent));
+    }
+    #[Route("/deleteReclamation/{id}", name: "deleteReclamationJSON")]
+    public function deleteReclamationJSON(Request $req, $id, NormalizerInterface $Normalizer,ManagerRegistry $doctrine)
+    {
+        $manager=$doctrine->getManager();
+
+        $reclamation = $manager->getRepository(Reclamation::class)->find($id);
+        $manager->remove($reclamation);
+        $manager->flush();
+        $jsonContent = $Normalizer->normalize($reclamation, 'json', ['groups' => 'reclamation']);
+        return new Response("Student deleted successfully " . json_encode($jsonContent));
+    }
+    #[Route("/detailjson/{id}", name: "detailjson")]
+    public function ReclaamtionId($id, NormalizerInterface $normalizer, ReclamationRepository $repo)
+    {
+        $reclamation = $repo->find($id);
+        $reclamationNormalises = $normalizer->normalize($reclamation, 'json', ['groups' => "reclamation"]);
+        return new Response(json_encode($reclamationNormalises));
+    }
+
+
+    #[Route('/f', name: 'filtrer')]
+    public function filterWords(WordFilterService $wordFilter): Response
+    {
+        $text = 'This is some text with badword1 and badword2.';
+        $filteredText = $wordFilter->filterWords($text);
+
+        return new Response($filteredText);
     }
 
 

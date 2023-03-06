@@ -3,8 +3,9 @@
     <h1>Liste Des Responses</h1>
 {% endblock %}
 {% block body %}
+    <input id="myInput" type="text" value="" name="Search" class="form-control" placeholder=" recherche response par description" autofocus>
     <div>
-    <table class="table table-borderless datatable">
+    <table class="table table-borderless datatable" id="myTable">
         <thead>
         <tr>
             <th scope="col">#</th>
@@ -13,7 +14,7 @@
 
         </tr>
         </thead>
-        <tbody>
+        <tbody >{# id="all" #}
         {% for response in responses %}
         <tr>
 
@@ -29,7 +30,56 @@
         </tr>
 
         </tbody>
+       {# <tbody id="searchtab"></tbody> #}
     </table>
 
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+
+    {# <script>
+        $( document ).ready(function (){
+            $("#search").keyup(function (e) {
+                var value=$(this).val();
+                $.ajax({
+                    url : "{{ path ('recherchebyajax') }}",
+                    type : 'GET',
+                    data : {
+                        'searchValue' : value
+                    },
+                    success : function (retour) {
+                        if(retour)
+                        {
+                            $('#t tbody#searchtab').empty();
+                            $.each(JSON.parse(retour),function (i,obj) {
+                                $('#t tbody#all').hide();
+                                $('#t tbody#searchtab').append('<tr><td>'+obj.id+'</td><td>'   +obj.description+'</td></tr>'  );
+
+                            });
+                        } else
+                        {
+                            $('#t tbody#all').show();
+                            $('#t tbody#searchtab').empty();
+                            $('#t tbody#searchtab').fadeIn('fast');
+
+
+                        }
+
+                    }
+                });
+                return false;
+
+            });
+        });
+    </script> #}
 {% endblock %}
