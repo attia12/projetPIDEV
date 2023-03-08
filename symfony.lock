@@ -61,6 +61,12 @@
             "ref": "b131e6cbfe1b898a508987851963fff485986285"
         }
     },
+    "gregwar/captcha-bundle": {
+        "version": "v1.0.0"
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v5.9.0"
+    },
     "nelmio/cors-bundle": {
         "version": "2.3",
         "recipe": {
