@@ -1,0 +1,10 @@
+{% block body %}
+    <h1>Report Article</h1>
+
+    <p>Please describe the problem with the article below:</p>
+
+    {{ form_start(form) }}
+        {{ form_row(form.message) }}
+        <button type="submit">Submit</button>
+    {{ form_end(form) }}
+{% endblock %}

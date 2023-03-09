@@ -1,0 +1,477 @@
+{% extends 'base1.html.twig' %}
+
+{% block title %}Hello FrontController!{% endblock %}
+
+{% block body %}
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+    <title>Sa7etna</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+  
+    <!-- Favicons -->
+    <link href="{{ asset('assets/img/l.png')}}" rel="icon">
+    <link href="{{ asset('assets/img/l.png')}}" rel="apple-touch-icon">
+  
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  
+    <!-- Vendor CSS Files -->
+    
+    
+  
+    <!-- =======================================================
+    * Template Name: Medilab - v4.10.0
+    * Template URL: https://bootstrapmade.com/medilab-free-medical-bootstrap-theme/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+   
+
+   
+    <!--
+
+TemplateMo 583 Festava Live
+
+https://templatemo.com/tm-583-festava-live
+
+-->
+</head>
+
+<body>
+    <div id="topbar" class="d-flex align-items-center fixed-top">
+        <div class="container d-flex justify-content-between">
+          <div class="contact-info d-flex align-items-center">
+            <i class="bi bi-envelope"></i> <a href="mailto:contact@example.com">Sa7etna@gmail.com</a>
+            <i class="bi bi-phone"></i> +216 96 700 134
+          </div>
+          <div class="d-none d-lg-flex social-links align-items-center">
+            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+
+    <main>
+
+        <header id="header" class="fixed-top">
+            <div class="container d-flex align-items-center">
+             
+              <h1 class="logo me-auto"><a href="index.html">Sa7etna</a></h1>
+              <!-- Uncomment below if you prefer to use an image logo -->
+              <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+        
+              <nav id="navbar" class="navbar order-last order-lg-0">
+                <ul>
+                  <li><a class="nav-link scrollto active" href="/acceuil_logged">Acceuil</a></li>
+                  <li><a class="nav-link scrollto" href="/frontt/med">Medicaments</a></li>
+                  <li><a class="nav-link scrollto" href="/front">Dons</a></li>
+                  <li><a class="nav-link scrollto" href="#departments">Articles</a></li>
+                  <li><a class="nav-link scrollto" href="#doctors">Docteurs</a></li>
+                  
+                  <li><a class="nav-link scrollto" href="/reclamation/addreclamation">Reclamation</a></li>
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+              </nav><!-- .navbar -->
+        
+              
+        
+         <img src="{{ asset(user.img) }}" style="width: 50px;border-radius: 50%;">
+<li><a href="/consult_user">{{user.nom}} {{user.prenom}}</a></li>
+<li><a href="/acceuil">Dec</a></li>
+            </div>
+          </header>
+
+
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                
+
+                <a href="ticket.html" class="btn custom-btn d-lg-none ms-auto me-4">Buy Ticket</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav align-items-lg-center ms-auto me-lg-5">
+                        <li class="nav-item">
+                            <a class="nav-link click-scroll" href="#section_1">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link click-scroll" href="#section_2">About</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link click-scroll" href="#section_3">Artists</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link click-scroll" href="#section_4">Schedule</a>
+                        </li>
+
+                        
+
+                        <li class="nav-item">
+                            <a class="nav-link click-scroll" href="#section_6">Contact</a>
+                        </li>
+                    </ul>
+
+                    <a href="ticket.html" class="btn custom-btn d-lg-block d-none">Buy Ticket</a>
+                </div>
+            </div>
+        </nav>
+
+
+        <section class="hero-section" id="section_1">
+            <div class="section-overlay"></div>
+
+            <div class="container d-flex justify-content-center align-items-center">
+                <div class="row">
+
+                    <div class="col-12 mt-auto mb-5 text-center">
+                        <small>Festava Live Presents</small>
+
+                        <h1 class="text-white mb-5">dan 2023</h1>
+
+                        <a class="btn custom-btn smoothscroll" href="/don/new">Ajouter</a>
+                        <a class="btn custom-btn smoothscroll" href="/affichage_don_front">Liste des dons</a>
+                    </div>
+
+                    <div class="col-lg-12 col-12 mt-auto d-flex flex-column flex-lg-row text-center">
+                        <div class="date-wrap">
+                           
+                        </div>
+
+                        
+
+                       
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-wrap">
+                <video autoplay="" loop="" muted="" class="custom-video" poster="">
+                    <source src="video/don.mp4" type="video/mp4">
+
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </section>
+
+
+        <section class="about-section section-padding" id="section_2">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-6 col-12 mb-4 mb-lg-0 d-flex align-items-center">
+                        <div class="services-info">
+                            <h2 class="text-white mb-4">Pourquoi faire un don de matériel médical ?</h2>
+
+                            <p class="text-white">Le don de matériel médical est très utile pour les pays en voie de développement ou pour les régions défavorisées. En effet, celui-ci présente une véritable valeur ajoutée pour les structures de santé et cela contribue à l’amélioration de la qualité des soins.
+En plus de vous permettre d’aider des centaines de personnes à avoir accès à de meilleurs soins, vous vous débarrassez par la même occasion du matériel que vous n'utilisez pas, mais qui reste tout de même de bonne qualité.
+Sachez que si vous souhaitez contribuer de manière active à l'amélioration des conditions de soins dans certains pays, vous pouvez même faire des dons de matériel médical neuf.</p>
+
+                            <h6 class="text-white mt-4">Quelles sont les règles à respecter pour faire un don de matériel médical ?</h6>
+
+                            <p class="text-white">Comme vous vous en doutez, le don de matériel médical pour association est soumis à certaines conditions afin que celui-ci reste sous le contrôle. Il faut savoir que l’OMS a publié des recommandations liées aux dons de matériel médical pour les associations.
+Voici les recommandations les plus importantes à prendre en compte afin de faire don de matériel médical neuf ou d’occasion :
+Le matériel médical doit impérativement être utile pour l’association qui en bénéficie.
+Le don doit être conforme aux exigences de l’association à laquelle vous le faite afin de respecter les procédures administratives du bénéficiaire.
+La qualité de l’équipement dont vous faites don doit être acceptable pour l’association.
+Le don doit être fait selon un plan structuré de l’association qui en bénéficie.</p>
+
+                          
+
+                            <p class="text-white">Please tell your friends about our website. Thank you.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-12">
+                        <div class="about-text-wrap">
+                            <img src="images/artists/m4.jpg" class="about-image img-fluid">
+
+                            <div class="about-text-info d-flex">
+                                <div class="d-flex">
+                                    <i class="about-text-icon bi-person"></i>
+                                </div>
+
+
+                                <div class="ms-4">
+                                    <h3>a happy moment</h3>
+
+                                    <p class="mb-0">your amazing festival experience with us</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <section class="artists-section section-padding" id="section_3">
+            <div class="container">
+                <div class="row justify-content-center">
+
+                    <div class="col-12 text-center">
+                        <h2 class="mb-4">Meet Artists</h1>
+                    </div>
+
+                    <div class="col-lg-5 col-12">
+                        <div class="artists-thumb">
+                            <div class="artists-image-wrap">
+                                <img src="images/artists/m2.jpg"
+                                    class="artists-image img-fluid">
+                            </div>
+
+                            <div class="artists-hover">
+                                <p>
+                                    <strong>Name:</strong>
+                                   produit medical
+                                </p>
+
+                                <p>
+                                    <strong>Birthdate:</strong>
+                                    2022 
+                                </p>
+
+                                <p>
+                                    <strong>medicament:</strong>
+                                    Pop, R&amp;B
+                                </p>
+
+                                <hr>
+
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5 col-12">
+                        <div class="artists-thumb">
+                            <div class="artists-image-wrap">
+                                <img src="images/artists/m3.jpg"
+                                    class="artists-image img-fluid">
+                            </div>
+
+                            <div class="artists-hover">
+                                <p>
+                                    <strong>Name:</strong>
+                                    Rihana
+                                </p>
+
+                                <p>
+                                    <strong>Birthdate:</strong>
+                                    Feb 20, 1988
+                                </p>
+
+                                <p>
+                                    <strong>Music:</strong>
+                                    Country
+                                </p>
+
+                                <hr>
+
+                                <p class="mb-0">
+                                    <strong>Youtube Channel:</strong>
+                                    <a href="#">Rihana Official</a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="artists-thumb">
+                            <img src="images/artists/m4.jpg"
+                                class="artists-image img-fluid">
+
+                            <div class="artists-hover">
+                                <p>
+                                    <strong>Name:</strong>
+                                    Bruno Bros
+                                </p>
+
+                                <p>
+                                    <strong>Birthdate:</strong>
+                                    October 8, 1985
+                                </p>
+
+                                <p>
+                                    <strong>Music:</strong>
+                                    Pop
+                                </p>
+
+                                <hr>
+
+                                <p class="mb-0">
+                                    <strong>Youtube Channel:</strong>
+                                    <a href="#">Bruno Official</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        
+
+
+       
+
+        <section class="contact-section section-padding" id="section_6">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-8 col-12 mx-auto">
+                        <h2 class="text-center mb-4">Interested? Let's talk</h2>
+
+                        <nav class="d-flex justify-content-center">
+                            <div class="nav nav-tabs align-items-baseline justify-content-center" id="nav-tab"
+                                role="tablist">
+                                <button class="nav-link active" id="nav-ContactForm-tab" data-bs-toggle="tab"
+                                    data-bs-target="#nav-ContactForm" type="button" role="tab"
+                                    aria-controls="nav-ContactForm" aria-selected="false">
+                                    <h5>Contact Form</h5>
+                                </button>
+
+                                
+                            </div>
+                        </nav>
+
+                        <div class="tab-content shadow-lg mt-5" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-ContactForm" role="tabpanel"
+                                aria-labelledby="nav-ContactForm-tab">
+                                <form class="custom-form contact-form mb-5 mb-lg-0" action="#" method="post"
+                                    role="form">
+                                    <div class="contact-form-body">
+                                        <div class="row">
+                                            
+
+                                         
+                                   <script src="https://apps.elfsight.com/p/platform.js" defer></script>
+<div class="elfsight-app-c61efaac-2f61-4b08-ad02-fb0df6674a7d"></div>
+                                        
+                                </form>
+                            </div>
+
+                            <div class="tab-pane fade" id="nav-ContactMap" role="tabpanel"
+                                aria-labelledby="nav-ContactMap-tab">
+                                
+                                <!-- You can easily copy the embed code from Google Maps -> Share -> Embed a map // -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+   
+    <section id="contact" class="contact">
+        <div class="container">
+          
+          <div class="section-title">
+            
+            <h2>Contact</h2>
+            
+  
+        <div class="container">
+          <div class="row mt-5">
+            
+            <div class="col-lg-4">
+              <div class="info">
+                <div class="address">
+                  <i class="bi bi-geo-alt"></i>
+                  <h4>Localisation:</h4>
+                  <p>1 Rue Arbi Zarrouk, Megrine</p>
+                </div>
+  
+                <div class="email">
+                  <i class="bi bi-envelope"></i>
+                  <h4>Email:</h4>
+                  <p>Contact@sa7etna.tn</p>
+                </div>
+  
+                <div class="phone">
+                  <i class="bi bi-phone"></i>
+                  <h4>Téléphone:</h4>
+                  <p>+216 96 700 134</p>
+                </div>
+  
+              </div>
+  
+            </div>
+  
+            <div class="col-lg-8 mt-5 mt-lg-0">
+  
+              
+  
+            </div>
+  
+          </div>
+  
+        </div>
+      
+      </section><!-- End Contact Section -->
+    </main>
+  
+    <footer id="footer">
+
+    
+
+        <div class="container d-md-flex py-4">
+    
+          <div class="me-md-auto text-center text-md-start">
+            <div class="copyright">
+              &copy; Copyright <strong><span>Sa7etna</span></strong>. Tous les droits sont réservés
+            </div>
+            <div class="credits">
+              <!-- All the links in the footer should remain intact. -->
+              <!-- You can delete the links only if you purchased the pro version. -->
+              <!-- Licensing information: https://bootstrapmade.com/license/ -->
+              <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/medilab-free-medical-bootstrap-theme/ -->
+              Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            </div>
+          </div>
+          <div class="social-links text-center text-md-right pt-3 pt-md-0">
+            <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+            <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+            <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+            <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+            <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+          </div>
+        </div>
+      </footer><!-- End Footer -->
+
+    <!--
+
+T e m p l a t e M o
+
+-->
+
+  
+
+</body>
+
+</html>
+
+{% endblock %}
+

@@ -1,0 +1,20 @@
+{{ form_start(form) }}
+
+<div class="form-group">
+    {{ form_label(form.title) }}
+    {{ form_widget(form.title) }}
+</div>
+<div class="form-group">
+    {{ form_label(form.description) }}
+    {{ form_widget(form.description, { 'attr': {'rows': 5, 'cols': 50} }) }}
+</div>
+<div class="form-group">
+    {{ form_label(form.published) }}
+    {{ form_widget(form.published) }}
+</div>
+<div class="form-group">
+    {{ form_label(form.image) }}
+    {{ form_widget(form.image) }}
+</div>
+<button class="btn {{ button_color|default('btn-outline-primary') }}  mt-3">{{ button_label|default('Save Article') }}</button>
+{{ form_end(form) }}

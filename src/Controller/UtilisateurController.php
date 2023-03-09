@@ -3,8 +3,9 @@
 namespace App\Controller;
 
 use Nexmo\Client;
-
-
+use App\Repository\ConsultationRepository;
+use App\Repository\DonRepository;
+use App\Repository\ReclamationRepository;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use App\Entity\Utilisateur;
@@ -183,10 +184,20 @@ $session->set('my_key',$Utilisateur);
         {
             $myValue = $session->get('my_key')->getId();
         $u=$x->find($myValue);
+        if ($u->getType()=="Patient")
             return $this->render('utilisateur/acceuil.html.twig',array("user"=>$u));
+else if ($u->getType()=="Medecin")
+return $this->render('utilisateur/acceuil_medecin.html.twig',array("user"=>$u));
           
             }
-    
+            #[Route('/acceuil_medecin_logged', name: 'app_acceuil_medecin_logged')]
+            public function front_medecin_logged(SessionInterface $session,UtilisateurRepository $x,ManagerRegistry  $doctrine,Request $request)
+            {
+                $myValue = $session->get('my_key')->getId();
+            $u=$x->find($myValue);
+                return $this->render('utilisateur/acceuil_medecin.html.twig',array("user"=>$u));
+              
+                }
 
     
     #[Route('/login', name: 'app_updateStudent')]
@@ -227,7 +238,11 @@ return $this->render('utilisateur/login.html.twig',array("form"=>$form->createVi
             if ($Utilisateur->getEmail()==$check_u[0]->getEmail()&& $Utilisateur->getMdp()==$check_u[0]->getMdp() && $check_u[0]->getType()!="Admin"&& $check_u[0]->getEtat()!=0)
            { 
             $session->set('my_key',$check_u[0]);
-            return $this->redirectToRoute("app_acceuil_logged");}
+            if ($check_u[0]->getType()=="Patient")
+            {
+                return $this->render('utilisateur/acceuil.html.twig',array("user"=>$check_u[0]));}
+        else if ($check_u[0]->getType()=="Medecin")
+        return $this->render('utilisateur/acceuil_medecin.html.twig',array("user"=>$check_u[0]));}
 else
 return $this->render('utilisateur/login_front.html.twig',array("form"=>$form->createView()));}
         }
@@ -449,7 +464,15 @@ return $this->redirectToRoute("app_acceuil_logged");
         return $this->redirectToRoute("app_acceuil_logged");
     }
   
-
+    #[Route('/historique',name: 'app_historique')]
+    public function Historique(ReclamationRepository $r,DonRepository $d,ConsultationRepository $c,SessionInterface $session,UtilisateurRepository  $x,ManagerRegistry  $doctrine)
+    {
+        $u = $session->get('my_key');
+$dons=$d->findByn($u->getId());
+$Consultation=$c->findBynomPatient($u->getNom()." ".$u->getPrenom());     
+$rec=$r->findByNom($u->getNom());
+    return $this->render('/utilisateur/hist.html.twig',array("dons"=>$dons,"consultations"=>$Consultation,"rec"=>$rec,"user"=>$u));
+    }
 
 
 
@@ -492,6 +515,7 @@ $em=$doctrine->getManager();
     $user->setNum($req->get('num'));
     $user->setAdresse($req->get('adresse'));
     $user->setImg("Null");
+    $user->setEtat(1);
     $em->persist($user);
     $em->flush();
     $json = $n->normalize($user,'json',['groups'=>"users"]);
@@ -541,17 +565,49 @@ return new Response("Utilisateur supprimer avec succes".json_encode($json));
 #[Route('/utilisateur_login_admin', name: 'app_utilisateur_login_admin')]
 public function login_admin_mobile(SessionInterface $session,SerializerInterface $s,UtilisateurRepository $x,ManagerRegistry  $doctrine,Request $req): Response
 {
-    
+    $u= new Utilisateur();
     $email=$req->get('email');
     $mdp=$req->get('mdp');
     $user=$x->findByExampleField($email);
-    if (isset($user))
+    
+    if (isset($user[0]))
     {
 if($user[0]->getMdp()==$mdp)
 {
     $session->set('my_key',$user);
 }
-else $session->set('my_key',"Null");
+else {
+
+$user[0]->setNom("null");
+$user[0]->setPrenom("null");
+
+$user[0]->setMdp("mdpnull");
+$user[0]->setImg("null");
+$user[0]->setNum(0);
+$user[0]->setEtat(10);
+$user[0]->setAdresse("null");
+    
+    
+    $session->set('my_key',$user);
+
+
+
+
+}
+    }
+    else{
+
+$u->setNom("nul");
+$u->setPrenom("nul");
+$u->setEmail("nul");
+$u->setMdp("nul");
+$u->setImg("nul");
+$u->setNum(0);
+$u->setEtat(10);
+$u->setAdresse("nul");
+$user[0]=$u;
+$session->set('my_key',$user);
+
     }
     
     
@@ -715,10 +771,47 @@ return new Response("Email envoyer avec success".json_encode($json));
 
     }
     
+    #[Route('/bloqueUser/{id}', name: 'app_Bloque_mobile')]
+    public function BloqueUser_mobile(NormalizerInterface $n,ManagerRegistry $doctrine,UtilisateurRepository $repository,$id)
+    {
+       
+    
+        $Utilisateur1=$repository->find($id);
+        $Utilisateur1->setEtat(0);
+        $em= $doctrine->getManager();
+        
+        $em->flush();
+        
+
+        $json = $n->normalize($Utilisateur1,'json',['groups'=>"users"]);
+        return new Response("Utilisateur Bloqué avec succes".json_encode($json));
+
+        }
+
+        #[Route('/bloqueUserr/{id}', name: 'app_Bloque_mobileee')]
+        public function BloquveUser_mobile(NormalizerInterface $n,ManagerRegistry $doctrine,UtilisateurRepository $repository,$id)
+        {
+           
+        
+            $Utilisateur1=$repository->find($id);
+            $Utilisateur1->setEtat(0);
+            $em= $doctrine->getManager();
+            
+            $em->flush();
+            
+        
+            $json = $n->normalize($Utilisateur1,'json',['groups'=>"users"]);
+            return new Response("Utilisateur Bloqué avec succes".json_encode($json));
+        
+            }
 
 
 
 
+
+
+
+    
 
 
 }

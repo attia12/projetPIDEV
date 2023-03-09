@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Sa7etna</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="{{ asset('assets/img2/l.png') }}" rel="icon">
+    <link href="{{ asset('assets/img2/l.png') }}" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="{{ asset('assets/vendor2/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor2/animate.css/animate.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor2/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor2/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor2/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor2/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor2/remixicon/remixicon.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor2/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="{{ asset('assets/css2/style.css') }}" rel="stylesheet">
+
+    <!-- =======================================================
+    * Template Name: Medilab - v4.10.0
+    * Template URL: https://bootstrapmade.com/medilab-free-medical-bootstrap-theme/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+</head>
+
+<body>
+
+<!-- ======= Top Bar ======= -->
+<div id="topbar" class="d-flex align-items-center fixed-top">
+    <div class="container d-flex justify-content-between">
+        <div class="contact-info d-flex align-items-center">
+            <i class="bi bi-envelope"></i> <a href="mailto:contact@example.com">Sa7etna@gmail.com</a>
+            <i class="bi bi-phone"></i> +216 96 700 134
+        </div>
+        <div class="d-none d-lg-flex social-links align-items-center">
+            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+        </div>
+    </div>
+</div>
+
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center">
+
+        <h1 class="logo me-auto"><a href="index.html">Sa7etna</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+        <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+                <li><a class="nav-link scrollto active" href="/acceuil_logged">Acceuil</a></li>
+                <li><a class="nav-link scrollto" href="/frontt/med">Medicaments</a></li>
+                <li><a class="nav-link scrollto" href="/front">Dons</a></li>
+                <li><a class="nav-link scrollto" href="#departments">Articles</a></li>
+                <li><a class="nav-link scrollto" href="#doctors">Docteurs</a></li>
+
+                <li><a class="nav-link scrollto" href="#contact">Reclamation</a></li>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav><!-- .navbar -->
+
+       <img src="{{ asset(user.img) }}" style="width: 50px;border-radius: 50%;">
+<li><a href="/consult_user">{{user.nom}} {{user.prenom}}</a></li>
+<li><a href="/acceuil">Dec</a></li>
+
+    </div>
+</header><!-- End Header -->
+
+
+<main id="main">
+
+  
+
+
+
+ 
+   
+
+  
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+        <div class="container">
+
+            <div class="section-title">
+
+                <h2>Contact</h2>
+
+
+                <div class="container">
+                    <div class="row mt-5">
+
+                        <div class="col-lg-4">
+                            <div class="info">
+                                <div class="address">
+                                    <i class="bi bi-geo-alt"></i>
+                                    <h4>Localisation:</h4>
+                                    <p>1 Rue Arbi Zarrouk, Megrine</p>
+                                </div>
+
+                                <div class="email">
+                                    <i class="bi bi-envelope"></i>
+                                    <h4>Email:</h4>
+                                    <p>Contact@sa7etna.tn</p>
+                                </div>
+
+                                <div class="phone">
+                                    <i class="bi bi-phone"></i>
+                                    <h4>Téléphone:</h4>
+                                    <p>+216 96 700 134</p>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        {% for message in app.session.flashBag.get('info') %}
+
+                            <div class="alert alert-info">{{ message }}</div>
+                        {% endfor %}
+                        {% for message in app.session.flashBag.get('success') %}
+
+                            <div class="alert alert-success">{{ message }}</div>
+                        {% endfor %}
+
+                        {% for message in app.session.flashBag.get('error') %}
+
+                            <div class="alert alert-danger">{{ message }}</div>
+                        {% endfor %}
+                        {% block body %}
+
+                        <div class="col-lg-8 mt-5 mt-lg-0">
+
+
+
+                        </div>
+                        {% endblock %}
+
+                    </div>
+
+                </div>
+
+    </section><!-- End Contact Section -->
+
+</main><!-- End #main -->
+
+<!-- ======= Footer ======= -->
+<footer id="footer">
+
+
+
+    <div class="container d-md-flex py-4">
+
+        <div class="me-md-auto text-center text-md-start">
+            <div class="copyright">
+                &copy; Copyright <strong><span>Sa7etna</span></strong>. Tous les droits sont réservés
+            </div>
+            <div class="credits">
+                <!-- All the links in the footer should remain intact. -->
+                <!-- You can delete the links only if you purchased the pro version. -->
+                <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/medilab-free-medical-bootstrap-theme/ -->
+                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            </div>
+        </div>
+        <div class="social-links text-center text-md-right pt-3 pt-md-0">
+            <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+            <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+            <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+            <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+            <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+        </div>
+    </div>
+</footer><!-- End Footer -->
+
+<div id="preloader"></div>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+<!-- Vendor JS Files -->
+<script src="{{ asset('assets/vendor2/purecounter/purecounter_vanilla.js') }}"></script>
+<script src="{{ asset('assets/vendor2/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('assets/vendor2/glightbox/js/glightbox.min.js') }}"></script>
+<script src="{{ asset('assets/vendor2/swiper/swiper-bundle.min.js') }}"></script>
+<script src="{{ asset('assets/vendor2/php-email-form/validate.js') }}"></script>
+
+<!-- Template Main JS File -->
+<script src="{{ asset('assets/js2/main.js') }}"></script>
+
+</body>
+
+</html>

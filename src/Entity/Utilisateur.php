@@ -54,7 +54,7 @@ class Utilisateur
     #[ORM\Column(length: 255)]
     #[Groups("users")]
     private ?string $img = null;
-
+    #[Groups("users")]
     #[ORM\Column(nullable: true)]
     private ?int $etat = null;
 

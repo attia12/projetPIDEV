@@ -1,0 +1,10 @@
+{% extends 'templateback.html.twig' %}
+{% block titre%}
+    <h1>Ls information de Reclamation</h1>
+{% endblock %}
+{% block body %}
+    <div class="alert alert-success">
+       La reclamation de  {{ reclamation.nom }}   {{ reclamation.prenom }} qui a {{ reclamation.email }}
+        consiste de "{{ reclamation.description }}"
+    </div>
+{% endblock %}

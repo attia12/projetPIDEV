@@ -267,32 +267,54 @@
           <span>Dashboard</span>
         </a>
       
-        <a class="nav-link " href="index.html">
+        <a class="nav-link " href="/utilisateur">
           <i class="bi bi-person"></i>
           <span>Gestion User</span>
         </a>
       
-        <a class="nav-link " href="index.html">
+        <a class="nav-link " href="/local/">
           <i class="bi bi-grid"></i>
           <span>Gestion Locaux</span>
         </a>
-        <a class="nav-link " href="index.html">
+        <a class="nav-link " href="/consultation/">
           <i class="bi bi-grid"></i>
-          <span>Gestion Medicaments</span>
+          <span>Gestion Consultation</span>
         </a>
-        <a class="nav-link " href="index.html">
+        <a class="nav-link " href="/don/">
           <i class="bi bi-grid"></i>
           <span>Gestion  Dons</span>
         </a>
-        <a class="nav-link " href="index.html">
+         <a class="nav-link " href="/categorie/">
           <i class="bi bi-grid"></i>
-          <span>Gestion Reclamations</span>
+          <span>Gestion  Categorie</span>
         </a>
-        <a class="nav-link " href="index.html">
+       <li class="nav-item">
+            <a class="nav-link " data-bs-target="#tables-nav" data-bs-toggle="collapse" href="{{ path('app_indexall') }}">
+                <i class="bi bi-layout-text-window-reverse"></i>
+                <span>Gestion Reclamations</span>
+
+                <i class="bi bi-chevron-down ms-auto"></i>
+
+            </a>
+
+            <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li><a href="{{ path('app_indexall') }}"><i class="bi bi-circle"></i>Reclamation</a></li>
+                <li>
+                    <a href="{{ path('app_afficheresponse') }}">
+                        <i class="bi bi-circle"></i><span>Response</span>
+                    </a>
+                </li>
+            </ul>
+
+        </li>
+        <a class="nav-link " href="/article/">
           <i class="bi bi-grid"></i>
           <span>Gestion Articles</span>
         </a>
-
+<a class="nav-link " href="/medicament/">
+          <i class="bi bi-grid"></i>
+          <span>Gestion Medicaments</span>
+        </a>
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="charts-nav" data-bs-toggle="collapse" >
           <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -329,16 +351,16 @@
 
      
       <li class="nav-item">
-        <a class="nav-link collapsed" href="/acceuil">
+        <a class="nav-link collapsed" href="pages-contact.html">
           <i class="bi bi-envelope"></i>
-          <span>Front</span>
+          <span>Contact</span>
         </a>
       </li>
 
       
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="/login">
+         <a class="nav-link collapsed" href="/login">
           <i class="bi bi-box-arrow-in-right"></i>
           <span>Deconnecté</span>
         </a>

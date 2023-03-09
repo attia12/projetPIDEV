@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Tableau des Produits</title>
+</head>
+<body >
+<h1 style="text-align: center; color: red">sa7tna</h1>
+<h2 style="text-align: center">Tableau des dons</h2>
+
+ <table id="myTable" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NomMedicament</th>
+                <th>Description</th>
+                <th>Quatite</th>
+                <th>Date</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        <input id="myInput" type="text" value="" name="Search" class="form-control" placeholder=" Recherche Medicament" autofocus>
+        {% for medicament in medicament %}
+            <tr>
+                <td>{{ medicament.id }}</td>
+                <td>{{ medicament.nomMedicament }}</td>
+                <td>{{ medicament.description }}</td>
+                <td>{{ medicament.quatite }}</td>
+                <td>{{ medicament.date ? medicament.date|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_medicament_show', {'id': medicament.id}) }}">show</a>
+                    <a href="{{ path('app_medicament_edit', {'id': medicament.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+</body>
+</html>
