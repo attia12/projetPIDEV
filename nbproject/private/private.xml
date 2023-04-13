@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/donia/OneDrive/Documents/NetBeansProjects/PiProjet/src/Controller/AjouterConsultationController.java</file>
+            <file>file:/C:/Users/donia/OneDrive/Documents/NetBeansProjects/PiProjet/src/Controller/AfficherConsultationController.java</file>
+            <file>file:/C:/Users/donia/OneDrive/Documents/NetBeansProjects/PiProjet/src/Entity/Consultation.java</file>
+            <file>file:/C:/Users/donia/OneDrive/Documents/NetBeansProjects/PiProjet/src/Services/ServiceLocal.java</file>
+            <file>file:/C:/Users/donia/OneDrive/Documents/NetBeansProjects/PiProjet/src/Controller/AjouterConsultation.fxml</file>
+            <file>file:/C:/Users/donia/OneDrive/Documents/NetBeansProjects/PiProjet/src/Controller/AfficherLocaleController.java</file>
+            <file>file:/C:/Users/donia/OneDrive/Documents/NetBeansProjects/PiProjet/src/Controller/AjouterLocaleController.java</file>
+            <file>file:/C:/Users/donia/OneDrive/Documents/NetBeansProjects/PiProjet/src/Services/ServiceConsultation.java</file>
+            <file>file:/C:/Users/donia/OneDrive/Documents/NetBeansProjects/PiProjet/src/Controller/AfficherConsultation.fxml</file>
+            <file>file:/C:/Users/donia/OneDrive/Documents/NetBeansProjects/PiProjet/src/Entity/GUI.java</file>
+            <file>file:/C:/Users/donia/OneDrive/Documents/NetBeansProjects/PiProjet/src/Controller/ModifierLocaleController.java</file>
+            <file>file:/C:/Users/donia/OneDrive/Documents/NetBeansProjects/PiProjet/src/Controller/ModifierConsultationController.java</file>
+            <file>file:/C:/Users/donia/OneDrive/Documents/NetBeansProjects/PiProjet/src/Services/IService.java</file>
+            <file>file:/C:/Users/donia/OneDrive/Documents/NetBeansProjects/PiProjet/src/Controller/ChoixConsultationController.java</file>
+        </group>
+    </open-files>
+</project-private>

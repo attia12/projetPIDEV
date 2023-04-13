@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ChoixConsultationController">
+   <children>
+      <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #87CEEB;">
+         <children>
+            <Label fx:id="aa" layoutX="208.0" layoutY="60.0" text="Consultation">
+               <font>
+                  <Font name="Comic Sans MS Bold" size="27.0" />
+               </font>
+            </Label>
+            <Button layoutX="401.0" layoutY="216.0" mnemonicParsing="false" onAction="#ajouter" style="-fx-background-color: #FFFFFFFF;" text="ajouter" />
+            <Label fx:id="aa1" layoutX="234.0" layoutY="107.0" text="voulez-vous ?">
+               <font>
+                  <Font name="Comic Sans MS Bold" size="16.0" />
+               </font>
+            </Label>
+            <Button layoutX="147.0" layoutY="216.0" mnemonicParsing="false" onAction="#afficher" style="-fx-background-color: #FFFFFFFF;" text="afficher" />
+         </children>
+      </AnchorPane>
+      <Button layoutX="502.0" layoutY="45.0" mnemonicParsing="false" onAction="#quit" style="-fx-background-color: #FFFFFF;" text="X" />
+   </children>
+</AnchorPane>
