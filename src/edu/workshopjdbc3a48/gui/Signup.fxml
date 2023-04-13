@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="457.0" prefWidth="615.0" style="-fx-background-color: #cce6f4;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.workshopjdbc3a48.gui.SignupController">
+   <children>
+      <Label layoutX="232.0" layoutY="31.0" prefHeight="18.0" prefWidth="229.0" text="S'inscrire" />
+      <Label layoutX="117.0" layoutY="80.0" text="Nom" />
+      <Label layoutX="116.0" layoutY="120.0" text="Prenom" />
+      <Label layoutX="122.0" layoutY="152.0" text="Email" />
+      <Label layoutX="124.0" layoutY="183.0" text="Mdp" />
+      <Label layoutX="112.0" layoutY="214.0" text="Addresse" />
+      <Label layoutX="116.0" layoutY="258.0" text="Num" />
+      <Label layoutX="117.0" layoutY="288.0" text="Type" />
+      <TextField fx:id="tfNom_si" layoutX="207.0" layoutY="76.0" />
+      <TextField fx:id="tfPrenom_si" layoutX="208.0" layoutY="116.0" />
+      <TextField fx:id="tfEmail_si" layoutX="208.0" layoutY="148.0" />
+      <TextField fx:id="tfMdp_si" layoutX="209.0" layoutY="179.0" />
+      <TextField fx:id="tfNum_si" layoutX="209.0" layoutY="254.0" />
+      <TextField fx:id="tfaddress_si" layoutX="210.0" layoutY="210.0" />
+      <Button fx:id="btnAjout_si" layoutX="410.0" layoutY="400.0" mnemonicParsing="false" onAction="#AjoutUser" style="-fx-background-color: #d62839;" text="Valider" textFill="WHITE" />
+      <ComboBox fx:id="cbType_si" layoutX="208.0" layoutY="284.0" prefWidth="150.0" />
+      <Button fx:id="btn_image_si" layoutX="209.0" layoutY="324.0" mnemonicParsing="false" onAction="#AddImage" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: #d62839;" text="Choisir une image" textFill="WHITE" />
+      <Label layoutX="119.0" layoutY="328.0" text="Image" />
+      <Label fx:id="e_prenom" layoutX="410.0" layoutY="120.0" />
+      <Label fx:id="e_email" layoutX="410.0" layoutY="152.0" />
+      <Label fx:id="e_mdp" layoutX="410.0" layoutY="183.0" />
+      <Label fx:id="e_num" layoutX="410.0" layoutY="258.0" />
+      <Label fx:id="e_nom" layoutX="396.0" layoutY="80.0" />
+      <Button fx:id="btn_face_id" layoutX="209.0" layoutY="357.0" mnemonicParsing="false" onAction="#FaceId" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: #d62839;" text="Capture Face" textFill="WHITE" />
+      <Label layoutX="122.0" layoutY="362.0" text="Face Id" />
+   </children>
+</AnchorPane>

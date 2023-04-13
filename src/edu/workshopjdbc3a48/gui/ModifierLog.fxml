@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #cce6f4;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.workshopjdbc3a48.gui.ModifierLogController">
+   <children>
+      <Label layoutX="142.0" layoutY="110.0" text="Nom_User" />
+      <Label layoutX="142.0" layoutY="140.0" text="Date" />
+      <DatePicker fx:id="date_lo" layoutX="220.0" layoutY="136.0" prefHeight="26.0" prefWidth="161.0" />
+      <Button fx:id="btn_m" layoutX="398.0" layoutY="200.0" mnemonicParsing="false" onAction="#mod_log" style="-fx-background-color: #d62839;" text="Valider" textFill="WHITE" />
+      <TextField fx:id="nom_lo" layoutX="220.0" layoutY="106.0" prefHeight="26.0" prefWidth="162.0" />
+   </children>
+</AnchorPane>
