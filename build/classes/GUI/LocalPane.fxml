@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="433.0" styleClass="shadow" stylesheets="@../../../../../../Downloads/Pidev-nasr/Pidev-nasr/src/roadrevel/resources/Styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.LocalPaneController">
+   <children>
+      <ImageView fx:id="bkimg" fitHeight="121.0" fitWidth="120.0" layoutX="14.0" layoutY="65.0" pickOnBounds="true" smooth="false">
+         <image>
+            <Image url="@../ressources/log.png" />
+         </image></ImageView>
+      <Label fx:id="temp" layoutX="355.0" layoutY="31.0" prefHeight="31.0" prefWidth="64.0" text="qdqzd" textFill="#726767" wrapText="true">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="weather" fitHeight="64.0" fitWidth="64.0" layoutX="283.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../Downloads/psst.png" />
+         </image>
+      </ImageView>
+      <HBox layoutX="138.0" layoutY="1.0" prefHeight="250.0" prefWidth="295.0">
+         <children>
+            <VBox alignment="BOTTOM_CENTER" prefHeight="250.0" prefWidth="196.0">
+               <children>
+                  <Label fx:id="BlocName" alignment="CENTER" prefHeight="41.0" prefWidth="166.0" text="Visit" textFill="#3e7f90">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Pane prefHeight="28.0" prefWidth="138.0" />
+                  <Label fx:id="PatientName" alignment="CENTER" prefHeight="39.0" prefWidth="166.0" text="Place_name" textFill="#3e7f90" wrapText="true">
+                     <font>
+                        <Font name="System Bold Italic" size="20.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="30.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Pane prefHeight="0.0" prefWidth="138.0" />
+               </children>
+            </VBox>
+            <VBox alignment="BOTTOM_CENTER" prefHeight="250.0" prefWidth="198.0">
+               <children>
+                  <Label fx:id="cname" alignment="CENTER" prefHeight="41.0" prefWidth="166.0" text="Cityname" textFill="#3e7f90" wrapText="true">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Pane prefHeight="21.0" prefWidth="150.0" />
+                  <Label fx:id="Loca" alignment="CENTER" prefHeight="39.0" prefWidth="166.0" text="tickets_Price" textFill="#3e7f90" wrapText="true">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="30.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Pane prefHeight="0.0" prefWidth="150.0" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</Pane>

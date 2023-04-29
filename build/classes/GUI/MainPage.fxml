@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="823.0" prefWidth="1324.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MainPageController">
+   <children>
+
+      <VBox prefHeight="781.0" prefWidth="281.0">
+
+         <children>
+
+            <AnchorPane fx:id="side_ankerpane" prefHeight="827.0" prefWidth="281.0" styleClass="side_ankerpane" stylesheets="@../ressources/Style.css">
+
+               <children>
+
+                  <Pane fx:id="inner_pane" layoutX="17.0" layoutY="27.0" prefHeight="78.0" prefWidth="248.0" styleClass="inner_pane">
+
+                     <children>
+
+                        <ImageView fitHeight="78.0" fitWidth="90.0" layoutX="22.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+
+                           <image>
+
+                              <Image url="@../ressources/images/profile.png" />
+
+                           </image>
+
+                        </ImageView>
+
+                     </children>
+
+                  </Pane>
+                  <JFXButton fx:id="btn_workbench1" layoutX="11.0" layoutY="317.0" onAction="#AddLocal" prefHeight="53.0" prefWidth="248.0" styleClass="btn_workbench" text=" Add Local" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../ressources/images/calendar.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Century Gothic Bold" size="13.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="btn_workbench11" layoutX="11.0" layoutY="152.0" onAction="#AddCon" prefHeight="53.0" prefWidth="248.0" styleClass="btn_workbench" text=" Add Consultation" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../ressources/images/calendar.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Century Gothic Bold" size="13.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="btn_workbench111" layoutX="11.0" layoutY="236.0" onAction="#ViewCon" prefHeight="53.0" prefWidth="248.0" styleClass="btn_workbench" text="View Consultation" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic Bold" size="13.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../ressources/images/calendar.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btn_workbench12" layoutX="11.0" layoutY="385.0" onAction="#ViewLocal" prefHeight="53.0" prefWidth="248.0" styleClass="btn_workbench" text="View local" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../ressources/images/calendar.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Century Gothic Bold" size="13.0" />
+                     </font>
+                  </JFXButton>
+
+               </children>
+
+            </AnchorPane>
+
+         </children>
+
+      </VBox>
+
+      <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="756.0" prefWidth="1126.0">
+
+         <children>
+
+            <Pane layoutY="14.0" prefHeight="804.0" prefWidth="1050.0" style="-fx-background-color: #EAEEF4;">
+
+               <children>
+                  <AnchorPane layoutY="198.0" prefHeight="610.0" prefWidth="1050.0">
+                     <children>
+                        <StackPane fx:id="contentArea" layoutX="2.0" layoutY="-1.0" prefHeight="610.0" prefWidth="1050.0" />
+                     </children>
+                  </AnchorPane>
+                  <Label layoutX="14.0" layoutY="122.0" text="Hello ! JavaFX Developers">
+                     <font>
+                        <Font name="Century Gothic Bold" size="34.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="36.0" layoutY="173.0" text="Never put of off till tommrow what can be done today !">
+                     <font>
+                        <Font name="Century Gothic" size="15.0" />
+                     </font>
+                  </Label>
+                  <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" prefHeight="31.0" prefWidth="31.0" style="-fx-background-color: #EAEEF4;" />
+                  <Pane fx:id="inner_pane1" layoutX="964.0" layoutY="122.0" prefHeight="70.0" prefWidth="72.0" styleClass="inner_pane" stylesheets="@../../../../../../Downloads/java_kazawi/Appointment/src/com/example/appointment/style.css">
+                     <children>
+                        <ImageView fitHeight="56.0" fitWidth="50.0" layoutX="11.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../Downloads/java_kazawi/Appointment/src/main/resources/images/search.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <ImageView fitHeight="29.0" fitWidth="40.0" layoutX="1000.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../Downloads/java_kazawi/Appointment/src/main/resources/images/parametre.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="150.0" fitWidth="456.0" layoutX="8.0" layoutY="-21.0" pickOnBounds="true" preserveRatio="true" />
+
+               </children>
+
+            </Pane>
+
+         </children>
+
+      </Pane>
+
+   </children>
+</HBox>
